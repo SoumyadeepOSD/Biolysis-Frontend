@@ -1,27 +1,33 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import React, { useState } from 'react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Card } from '@/components/ui/card'
-import Placeholder from './_components/main-section/placeholder'
-import MenuComponent from './_components/menu-component'
-import Image from 'next/image'
-import { LogoImage } from './_components/images/images'
-import axios from 'axios'
-import { Toaster } from '@/components/ui/toaster'
-import { useToast } from '@/hooks/use-toast'
+import React, { useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card } from '@/components/ui/card';
+import Placeholder from './_components/main-section/placeholder';
+import MenuComponent from './_components/menu-component';
+import Image from 'next/image';
+import { LogoImage } from './_components/images/images';
+import axios from 'axios';
+import { Toaster } from '@/components/ui/toaster';
+import { useToast } from '@/hooks/use-toast';
+
+interface chatMessages {
+  sender: "user" | "api";
+  content: string;
+  loading?: boolean; // Optional loading property to track if API message is still being generated
+}
 
 const Home = () => {
-  const [query, setQuery] = useState<string | null>("");
-  const [data, setData] = useState<unknown | null>({});
-  const [loading, setLoading] = useState<boolean>(false);
-  const { toast } = useToast()
+  const [query, setQuery] = useState<string>(""); // No need for null type
+  const [chatHistory, setChatHistory] = useState<chatMessages[]>([]);
+  const { toast } = useToast();
 
   const generateResponse = async () => {
-    
+    setQuery(""); // Ensure this is called to clear the input field
     try {
-      if (query === null || query === "") {
+      if (!query) {
         toast({
           variant: "destructive",
           title: "Warning⚠️",
@@ -29,15 +35,25 @@ const Home = () => {
         });
         return;
       }
-      setLoading(true);
-      const response = await axios.get(`/api/general-response?query=${query}`)
+
+      setChatHistory([...chatHistory, { sender: "user", content: query }]);
+      setChatHistory((prev) => [
+        ...prev,
+        { sender: "api", content: "", loading: true }
+      ]);
+      
+      const response = await axios.get(`/api/general-response?query=${query}`);
+
       if (response.status === 200) {
-        setData(response.data.data.response);
-        setLoading(false);
-        console.log(response.data.data.response);
+        setChatHistory((prev) =>
+          prev.map((message) =>
+            message.sender === "api" && message.loading
+              ? { ...message, content: response.data.data.response, loading: false }
+              : message
+          )
+        );
       }
-    } catch (error: unknown | null) {
-      setLoading(false);
+    } catch (error) {
       console.error(error);
       toast({
         variant: "destructive",
@@ -45,8 +61,7 @@ const Home = () => {
         description: `Failed to fetch data due to ${error}`,
       });
     }
-  }
-
+  };
 
   return (
     <div className="bg-red-100 w-full h-screen flex flex-col justify-center items-center p-2">
@@ -56,14 +71,16 @@ const Home = () => {
           <Image src={LogoImage} alt={'logo'} height={100} width={100} style={{ objectFit: 'contain' }} />
         </div>
         <MenuComponent />
-        <div className="flex flex-row w-full max-w-sm items-center justify-center space-x-2 text-black mt-10">
-          <Input type="email" placeholder="Enter compound name" onChange={(e) => setQuery(e.target.value)} />
-          <Button type="submit" onClick={generateResponse}>Search</Button>
-        </div>
-        <Placeholder type={loading ? "loading" : !loading&&data ? "success" : "default"} data={data} />
+        <section className="flex flex-col items-center justify-between h-[80%] w-full">
+          <Placeholder chatHistory={chatHistory} />
+          <div className="flex flex-row w-screen items-center justify-center space-x-2 text-black mt-10">
+            <Input type="text" placeholder="Enter compound name" onChange={(e) => setQuery(e.target.value)} className="w-[60%]" value={query}/>
+            <Button type="submit" onClick={generateResponse}>Search</Button>
+          </div>
+        </section>
       </Card>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

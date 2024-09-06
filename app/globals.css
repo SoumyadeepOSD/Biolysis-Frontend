@@ -92,19 +92,87 @@ body {
 }
 
 
+/* globals.css or a CSS module */
+/* globals.css or a CSS module */
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
 
 .markdown-content h1 {
-  font-size: 2em;
-  font-weight: bold;
-  margin-bottom: 0.5em;
+    font-size: 2rem;
 }
 
 .markdown-content h2 {
-  font-size: 1.5em;
-  font-weight: bold;
-  margin-bottom: 0.5em;
+    font-size: 1.5rem;
+}
+
+.markdown-content h3 {
+    font-size: 1.25rem;
+}
+
+.markdown-content p {
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    color: black;
+    font-weight: 500;
+}
+
+.markdown-content a {
+    color: #1e90ff;
+    text-decoration: none;
+}
+
+.markdown-content a:hover {
+    text-decoration: underline;
 }
 
 .markdown-content strong {
-  font-weight: bold;
+    font-weight: bold;
+}
+
+.markdown-content em {
+    font-style: italic;
+}
+
+.markdown-content blockquote {
+    border-left: 4px solid #ddd;
+    padding-left: 1rem;
+    margin-left: 0;
+    margin-right: 0;
+    color: #555;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+}
+
+.markdown-content li {
+    margin-bottom: 0.5rem;
+}
+
+.markdown-content code {
+    background-color: #f4f4f4;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: monospace;
+}
+
+.markdown-content pre {
+    background-color: #f4f4f4;
+    padding: 1rem;
+    border-radius: 3px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+}
+
+.markdown-content hr {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 1.5rem 0;
 }
