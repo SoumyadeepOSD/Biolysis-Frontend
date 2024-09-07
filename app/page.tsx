@@ -70,7 +70,9 @@ const Home = () => {
         <div className="flex flex-row items-center justify-center">
           <Image src={LogoImage} alt={'logo'} height={100} width={100} style={{ objectFit: 'contain' }} />
         </div>
+        <div className="w-full">
         <MenuComponent />
+        </div>
         <section className="flex flex-col items-center justify-between h-[80%] w-full">
           <Placeholder chatHistory={chatHistory} />
           <div className="flex flex-row w-screen items-center justify-center space-x-2 text-black mt-10">
