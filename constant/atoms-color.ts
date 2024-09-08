@@ -1,0 +1,35 @@
+const atomicData: { [key: number]: { name: string; color: string } } = {
+    1: { name: "Hydrogen", color: "#33D1FF" }, 
+    2: { name: "Helium", color: "#33FFBD" },
+    3: { name: "Lithium", color: "#337BFF" },
+    4: { name: "Beryllium", color: "#8D33FF" },
+    5: { name: "Boron", color: "#FFC733" },
+    6: { name: "Carbon", color: "#676767" },
+    7: { name: "Nitrogen", color: "#FF5733" },
+    8: { name: "Oxygen", color: "#FF33A8" },
+    9: { name: "Fluorine", color: "#FF8633" },
+    10: { name: "Neon", color: "#C033FF" },
+    11: { name: "Sodium", color: "#FF3333" },
+    12: { name: "Magnesium", color: "#33FF85" },
+    13: { name: "Aluminum", color: "#33AFF6" },
+    14: { name: "Silicon", color: "#F633FF" },
+    15: { name: "Phosphorus", color: "#FFF633" },
+    16: { name: "Sulfur", color: "#33FFDD" },
+    17: { name: "Chlorine", color: "#FF33C7" },
+    18: { name: "Argon", color: "#33FF99" },
+    19: { name: "Potassium", color: "#FF333E" },
+    20: { name: "Calcium", color: "#333AFF" },
+    21: { name: "Scandium", color: "#FF3385" },
+    22: { name: "Titanium", color: "#33FFC4" },
+    23: { name: "Vanadium", color: "#33FF4B" },
+    24: { name: "Chromium", color: "#33E1FF" },
+    25: { name: "Manganese", color: "#7C33FF" },
+    26: { name: "Iron", color: "#FF6F33" },
+    27: { name: "Cobalt", color: "#33FFAA" },
+    28: { name: "Nickel", color: "#FF3366" },
+    29: { name: "Copper", color: "#3366FF" },
+    30: { name: "Zinc", color: "#33FFC8" }
+};
+
+
+export { atomicData };

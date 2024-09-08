@@ -15,17 +15,10 @@ import "../../app/globals.css";
 import { Slider } from "@/components/ui/slider"
 import { Gauge } from 'lucide-react';
 import { Chip } from "@nextui-org/react";
-
-
-
-
-
-// Define TypeScript types for atoms and bonds
-interface AtomicNumberToNameMap {
-    [key: number]: string;
-}
-
-
+import { atomicData } from '@/constant/atoms-color';
+import Image from 'next/image';
+import { emptyLab } from '../_components/images/images';
+const API_URL = process.env.NEXT_PUBLIC_DATA_URL;
 interface AtomProps {
     position: [number, number, number];
     element: number;
@@ -79,44 +72,10 @@ const initialCompoundData = {
 
 
 
-const atomicData: { [key: number]: { name: string; color: string } } = {
-    1: { name: "Hydrogen", color: "#33D1FF" }, 
-    2: { name: "Helium", color: "#33FFBD" },
-    3: { name: "Lithium", color: "#337BFF" },
-    4: { name: "Beryllium", color: "#8D33FF" },
-    5: { name: "Boron", color: "#FFC733" },
-    6: { name: "Carbon", color: "#676767" },
-    7: { name: "Nitrogen", color: "#FF5733" },
-    8: { name: "Oxygen", color: "#FF33A8" },
-    9: { name: "Fluorine", color: "#FF8633" },
-    10: { name: "Neon", color: "#C033FF" },
-    11: { name: "Sodium", color: "#FF3333" },
-    12: { name: "Magnesium", color: "#33FF85" },
-    13: { name: "Aluminum", color: "#33AFF6" },
-    14: { name: "Silicon", color: "#F633FF" },
-    15: { name: "Phosphorus", color: "#FFF633" },
-    16: { name: "Sulfur", color: "#33FFDD" },
-    17: { name: "Chlorine", color: "#FF33C7" },
-    18: { name: "Argon", color: "#33FF99" },
-    19: { name: "Potassium", color: "#FF333E" },
-    20: { name: "Calcium", color: "#333AFF" },
-    21: { name: "Scandium", color: "#FF3385" },
-    22: { name: "Titanium", color: "#33FFC4" },
-    23: { name: "Vanadium", color: "#33FF4B" },
-    24: { name: "Chromium", color: "#33E1FF" },
-    25: { name: "Manganese", color: "#7C33FF" },
-    26: { name: "Iron", color: "#FF6F33" },
-    27: { name: "Cobalt", color: "#33FFAA" },
-    28: { name: "Nickel", color: "#FF3366" },
-    29: { name: "Copper", color: "#3366FF" },
-    30: { name: "Zinc", color: "#33FFC8" }
-};
 
 
 const Atom: React.FC<AtomProps> = ({ position, element, compoundName }) => {
     const [showTooltip, setShowTooltip] = useState(false); // Manage tooltip visibility
-
-    // const color = element === 6 ? "#AAAA" : element === 1 ? "#33D1FF" : ele"red";
     const color = atomicData[element]?.color || "#333";
     // Handlers for hover events
     const handlePointerOver = () => setShowTooltip(true);
@@ -294,23 +253,23 @@ const Molecule: React.FC<{ compoundData: typeof initialCompoundData; compoundNam
                 />
             ))}
             {bonds.aid1.map((aid1, index) => (
-    <Bond
-        key={index}
-        start={[
-            atomPositions.x[atoms.aid.indexOf(aid1)] - centerX,
-            atomPositions.y[atoms.aid.indexOf(aid1)] - centerY,
-            0,
-        ]}
-        end={[
-            atomPositions.x[atoms.aid.indexOf(bonds.aid2[index])] - centerX,
-            atomPositions.y[atoms.aid.indexOf(bonds.aid2[index])] - centerY,
-            0,
-        ]}
-        radius={0.1}
-        compoundName={compoundName}
-        bondOrder={bonds.order[index]} // Use bond order here (1 for single, 2 for double, 3 for triple)
-    />
-))}
+                <Bond
+                    key={index}
+                    start={[
+                        atomPositions.x[atoms.aid.indexOf(aid1)] - centerX,
+                        atomPositions.y[atoms.aid.indexOf(aid1)] - centerY,
+                        0,
+                    ]}
+                    end={[
+                        atomPositions.x[atoms.aid.indexOf(bonds.aid2[index])] - centerX,
+                        atomPositions.y[atoms.aid.indexOf(bonds.aid2[index])] - centerY,
+                        0,
+                    ]}
+                    radius={0.1}
+                    compoundName={compoundName}
+                    bondOrder={bonds.order[index]} // Use bond order here (1 for single, 2 for double, 3 for triple)
+                />
+            ))}
 
         </group>
     );
@@ -340,7 +299,8 @@ const Visualize3D = () => {
             }
             setLoading(true);
             setError(false);
-            const response = await fetch(`https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${compoundName}/JSON`);
+            
+            const response = await fetch(`${API_URL}/${compoundName}/JSON`);
             if (response.status === 200) {
                 const data = await response.json();
                 setCompoundData(data);
@@ -401,7 +361,7 @@ const Visualize3D = () => {
                         <OrbitControls autoRotate={autoRotate} autoRotateSpeed={sliderValue} />
                     </Canvas>
                 )}
-                {metaData && <section className="w-full md:w-[30vw] h-full mt-5 ml-0 md:ml-3 rounded-xl border-[2px] border-slate-300 p-3">
+                {metaData.iupacName && <section className="w-full md:w-[30vw] h-full mt-5 ml-0 md:ml-3 rounded-xl border-[2px] border-slate-300 p-3">
                     <div className="flex flex-col items-start justify-start gap-5">
                         <Button variant="default" onClick={toggleAutoRotate}>
                             {autoRotate ? "Disable Auto-Rotate" : "Enable Auto-Rotate"}
@@ -435,7 +395,7 @@ const Visualize3D = () => {
                                                         style={{ backgroundColor: atomicInfo?.color || "#CCC" }}
                                                     >
                                                         <p className="text-white font-bold">
-                                                        {atomicInfo?.name}({atomicNumber})
+                                                            {atomicInfo?.name}({atomicNumber})
                                                         </p>
                                                     </Chip>
                                                 );
@@ -450,6 +410,19 @@ const Visualize3D = () => {
 
                     </div>
                 </section>}
+                {!metaData.iupacName && !loading &&
+                    <div className="flex flex-col items-center justify-center w-full h-full">
+                        <Image
+                            src={emptyLab}
+                            alt="No data"
+                            width={100}
+                            height={100}
+                            style={{
+                                opacity: 0.5
+                            }}
+                        />
+                    </div>
+                }
                 {loading && (
                     <div className="flex flex-col items-start justify-center h-[20vh] gap-3">
                         <Skeleton className="w-[50vw] h-[5vh] rounded-xl" />

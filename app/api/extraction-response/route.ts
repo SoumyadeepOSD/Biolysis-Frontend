@@ -6,7 +6,7 @@ export async function GET(request:NextRequest){
     const API_URI = process.env.NEXT_API_URL!;
     // const API_URI = "http://localhost:8000";
     try {
-        const response = await axios.get(`${API_URI}/interface/v1/response/general?query=${query}`);
+        const response = await axios.get(`${API_URI}/interface/v1/response/extract?query=${query}`);
         return NextResponse.json({data: response.data, status: 200});
     } catch (error) {
         console.error(error);

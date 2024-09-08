@@ -28,7 +28,7 @@ const CompoundVisualization: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-screen h-[100%] md:h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center w-screen h-screen bg-slate-100">
       <Card className="h-[98%] w-[98%] flex flex-col items-center p-3 bg-slate-200">
         <div className="flex flex-row items-center justify-start w-full">
           <MenuComponent />
@@ -41,14 +41,15 @@ const CompoundVisualization: React.FC = () => {
                 <div
                   key={tool.id}
                   onClick={() => toogleTabs(tool.id)}
-                  className="my-5 border-[1px] p-5 border-slate-300 rounded-xl w-full hover:bg-purple-100 cursor-pointer min-h-fit"
+                  className={`my-5 border-[1px] p-5  rounded-xl w-full cursor-pointer min-h-fit hover:bg-purple-100 
+                    ${selected.id === tool.id ? 'border-blue-500' : 'border-slate-300'}`}
                 >
                   <p className="text-sm md:text-base">{tool.name}</p>
                 </div>
               ))}
             </section>
           </Card>
-          <Card className="h-[100%] w-full md:w-[79%] flex flex-col p-5">
+          <Card className="h-fit md:h-[100%] w-full md:w-[79%] flex flex-col p-5">
             {selected.tool}
           </Card>
         </div>
