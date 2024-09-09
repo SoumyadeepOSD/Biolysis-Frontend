@@ -9,7 +9,6 @@ import axios from 'axios';
 import CompoundMetaData from '../_components/compound-metadata';
 import LoadingComponent from '../_components/loading-component';
 
-// const API_URL = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name";
 const MoleculeViewer = dynamic(() => import('../_components/molecular-structure/molecular-structure'), { ssr: false });
 
 const CompoundForm = () => {
