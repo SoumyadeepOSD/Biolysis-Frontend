@@ -8,6 +8,9 @@ import dynamic from 'next/dynamic';
 import axios from 'axios';
 import CompoundMetaData from '../_components/compound-metadata';
 import LoadingComponent from '../_components/loading-component';
+import { emptyLab } from '../_components/images/images';
+import Image from 'next/image';
+import { Search } from 'lucide-react';
 
 const MoleculeViewer = dynamic(() => import('../_components/molecular-structure/molecular-structure'), { ssr: false });
 
@@ -67,6 +70,7 @@ const CompoundForm = () => {
 
   return (
     <div className="p-4">
+      <p className="font-semibold text-slate-700 text-lg p-3">Write compound name, AI will handle rest of all</p>
       <div className="flex flex-row items-center justify-center mb-4 gap-3">
         <Input
           placeholder="Enter compound name"
@@ -74,10 +78,22 @@ const CompoundForm = () => {
           onChange={(e) => setQuery(e.target.value)}
         />
         <Button onClick={fetchCompoundData} disabled={loading}>
+          <Search />
           {loading ? 'Loading...' : 'Search'}
         </Button>
       </div>
       {/* Molecule Viewer Component */}
+      {!query && <div className="flex flex-col items-center justify-center opacity-50 pt-20">
+        <Image
+          src={emptyLab}
+          alt="empty lab"
+          width={100}
+          height={100}
+          style={{ objectFit: "contain" }}
+        />
+        <p className="text-slate-500 font-semibold text-center py-2">Get your molecule/compound information with 2d diagram</p>
+      </div>
+      }
       {compoundData && (
         <section className="mt-4 flex flex-col md:flex-row items-start w-full gap-40">
           <div>
@@ -93,7 +109,7 @@ const CompoundForm = () => {
           </section>
         </section>
       )}
-      {loading&&<LoadingComponent/>}
+      {loading && <LoadingComponent />}
       <Toaster />
     </div>
   );

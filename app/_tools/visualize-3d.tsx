@@ -299,7 +299,7 @@ const Visualize3D = () => {
             }
             setLoading(true);
             setError(false);
-            
+
             const response = await fetch(`${API_URL}/${compoundName}/JSON`);
             if (response.status === 200) {
                 const data = await response.json();
@@ -410,18 +410,16 @@ const Visualize3D = () => {
 
                     </div>
                 </section>}
-                {!metaData.iupacName && !loading &&
-                    <div className="flex flex-col items-center justify-center w-full h-full">
-                        <Image
-                            src={emptyLab}
-                            alt="No data"
-                            width={100}
-                            height={100}
-                            style={{
-                                opacity: 0.5
-                            }}
-                        />
-                    </div>
+                {!compoundName && <div className="flex flex-col items-center justify-center opacity-50 pt-20 w-full">
+                    <Image
+                        src={emptyLab}
+                        alt="empty lab"
+                        width={100}
+                        height={100}
+                        style={{ objectFit: "contain" }}
+                    />
+                    <p className="text-slate-500 font-semibold text-center py-2">Write your molecule/compound to get 3d visualiation</p>
+                </div>
                 }
                 {loading && (
                     <div className="flex flex-col items-start justify-center h-[20vh] gap-3">

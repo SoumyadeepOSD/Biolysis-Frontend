@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
-import { LogoImage } from "../_components/images/images";
+import { dataAnalysis, generateDiagram, LogoImage, virtualLabAssistant, visualize3D } from "../_components/images/images";
 import Image from "next/image";
 import MenuComponent from "../_components/menu-component";
 import GenerateDiagram from "../_tools/generate-diagram";
@@ -12,10 +12,10 @@ import VirualLabAssistant from "../_tools/virtual-lab-assistant";
 
 const CompoundVisualization: React.FC = () => {
   const toolsName = [
-    { id: 0, name: "Generate Diagram", path: "/generate-diagram", tool: <GenerateDiagram /> },
-    { id: 1, name: "Data Analysis", path: "/data-analysis", tool: <DataAnalysis /> },
-    { id: 2, name: "Visualize in 3D", path: "/visualize-in-3d", tool: <Visualize3D /> },
-    { id: 3, name: "Virtual Lab", path: "/virtual-lab-assistant", tool: <VirualLabAssistant /> }
+    { id: 0, name: "Generate Diagram", path: "/generate-diagram", tool: <GenerateDiagram />, icon: generateDiagram },
+    { id: 1, name: "Data Analysis", path: "/data-analysis", tool: <DataAnalysis />, icon: dataAnalysis },
+    { id: 2, name: "Visualize in 3D", path: "/visualize-in-3d", tool: <Visualize3D />, icon: visualize3D },
+    { id: 3, name: "Virtual Lab", path: "/virtual-lab-assistant", tool: <VirualLabAssistant />, icon: virtualLabAssistant }
   ];
 
   const [selected, setSelected] = useState(toolsName[0]);
@@ -36,7 +36,7 @@ const CompoundVisualization: React.FC = () => {
         </div>
         <div className="flex flex-col gap-5 md:flex-row items-center justify-between w-full h-full">
           <Card className="h-[100%] w-full md:w-[20%] py-5">
-            <section className="grid grid-cols-2 gap-1 md:flex flex-col items-start justify-center px-3 mt-10">
+            <section className="grid grid-cols-2 gap-1 md:flex flex-col items-start justify-center px-3">
               {toolsName.map(tool => (
                 <div
                   key={tool.id}
@@ -44,7 +44,10 @@ const CompoundVisualization: React.FC = () => {
                   className={`my-5 border-[1px] p-5  rounded-xl w-full cursor-pointer min-h-fit hover:bg-purple-100 
                     ${selected.id === tool.id ? 'border-blue-500' : 'border-slate-300'}`}
                 >
-                  <p className="text-sm md:text-base">{tool.name}</p>
+                  <div className="flex flex-row items-center gap-2">
+                    <p className="text-sm md:text-base">{tool.name}</p>
+                    <Image src={tool.icon} alt={'tool'} height={50} width={50} style={{ objectFit: 'contain' }} />
+                  </div>
                 </div>
               ))}
             </section>
