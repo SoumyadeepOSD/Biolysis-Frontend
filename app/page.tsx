@@ -64,7 +64,7 @@ const Home = () => {
   };
 
   return (
-    <div className="bg-red-100 w-full h-screen flex flex-col justify-center items-center p-2">
+    <div className="bg-slate-50 w-full h-screen flex flex-col justify-center items-center p-2">
       <Toaster />
       <Card className="h-[90%] w-[90%] flex flex-col items-center p-10">
         <div className="flex flex-row items-center justify-center">

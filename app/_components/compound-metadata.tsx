@@ -1,9 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 
-const CompoundMetaData = ({ compoundData, compoundName }: { compoundData: any, compoundName: string }) => {
+const CompoundMetaData = ({ compoundData, compoundName, smileStructure }: { compoundData: any, compoundName: string, smileStructure: string }) => {
     return (
-        <div className="flex flex-col items-start">
+        <div className="flex flex-col items-star w-[80%]">
+            <p className="text-wrap flex flex-col">
+                <span>Smile structure:</span>
+                <span>{smileStructure}</span>
+            </p>
             <p><strong>Molecular Formula:</strong>
                 {compoundData.props.find((prop: any) => prop.urn.label === 'Molecular Formula')?.value?.sval
                     || compoundData.props.find((prop: any) => prop.urn.label === 'Molecular Formula')?.value?.ival

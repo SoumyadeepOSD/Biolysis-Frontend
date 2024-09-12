@@ -197,3 +197,10 @@ body {
   white-space: nowrap;
   pointer-events: none;
 }
+
+
+@layer utilities {
+  .react-flow__attribution {
+    @apply hidden;
+  }
+}

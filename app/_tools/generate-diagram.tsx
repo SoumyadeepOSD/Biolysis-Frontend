@@ -69,7 +69,7 @@ const CompoundForm = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 h-[77vh]">
       <p className="font-semibold text-slate-700 text-lg p-3">Write compound name, AI will handle rest of all</p>
       <div className="flex flex-row items-center justify-center mb-4 gap-3">
         <Input
@@ -95,16 +95,15 @@ const CompoundForm = () => {
       </div>
       }
       {compoundData && (
-        <section className="mt-4 flex flex-col md:flex-row items-start w-full gap-40">
+        <section className="mt-4 flex flex-col md:flex-row items-start w-full gap-40 h-[85%] overflow-scroll">
           <div>
             <h2 className="text-lg font-bold">Compound Dash Diagram</h2>
             <MoleculeViewer structure={smileStructure} id="smiles" />
           </div>
           {/* Render compound details */}
-          <section>
+          <section className="bg-slate-100 px-10 rounded-lg">
             <div className="mt-4">
-              <p><strong>Smile structure:</strong>{smileStructure}</p>
-              <CompoundMetaData compoundData={compoundData} compoundName={compoundName} />
+              <CompoundMetaData compoundData={compoundData} compoundName={compoundName} smileStructure={smileStructure} />
             </div>
           </section>
         </section>

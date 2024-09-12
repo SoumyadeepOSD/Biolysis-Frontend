@@ -19,6 +19,7 @@ interface compoundMeataData {
   other_factors: string;
   apparatures: string;
   process: string;
+  reaction: string;
 }
 
 
@@ -35,6 +36,7 @@ const DataAnalysis = () => {
     other_factors: "",
     apparatures: "",
     process: "",
+    reaction:"",
   });
   const [loading, setLoading] = useState(false);
 
@@ -84,62 +86,67 @@ const DataAnalysis = () => {
       />
       <Button onClick={onSubmit}>Submit</Button>
 
-      <section className="bg-blue-50 rounded-md p-3 mt-3 h-[50vh] overflow-scroll">
+      {!loading && <section className="bg-blue-50 rounded-md p-3 mt-3 h-[50vh] overflow-scroll">
         {!loading && data &&
           <div className="flex flex-col gap-2 items-start justify-start">
             {data.name_of_compounds && <p>
-              <span className="font-bold text-lg">Names of Reactants:</span>
+              <span className="font-bold text-lg">(1) Names of Reactants:</span>
               <span className="text-slate-500 font-bold">{data.name_of_compounds}</span>
             </p>
             }
             {data.type_of_reaction && <p>
-              <span className="font-bold text-lg">Type of Reaction:</span>
+              <span className="font-bold text-lg">(2) Type of Reaction:</span>
               <span className="text-slate-500 font-bold">{data.type_of_reaction}</span>
             </p>
             }
             {data.apparatures && <p>
-              <span className="font-bold text-lg">Apparatus:</span>
+              <span className="font-bold text-lg">(3) Apparatus:</span>
               <span className="text-slate-500 font-bold">{data.apparatures}</span>
             </p>
             }
             {data.catalysts && <p>
-              <span className="font-bold text-lg">Catalysts:</span>
+              <span className="font-bold text-lg">(4) Catalysts:</span>
               <span className="text-slate-500 font-bold">{data.catalysts}</span>
             </p>
             }
             {data.other_factors && <p>
-              <span className="font-bold text-lg">Other Factors:</span>
+              <span className="font-bold text-lg">(5) Other Factors:</span>
               <span className="text-slate-500 font-bold">{data.other_factors}</span>
             </p>
             }
             {data.humidity && <p>
-              <span className="font-bold text-lg">Humidity:</span>
+              <span className="font-bold text-lg">(6) Humidity:</span>
               <span className="text-slate-500 font-bold">{data.humidity}</span>
             </p>
             }
             {data.process && <p>
-              <span className="font-bold text-lg">Process:</span>
+              <span className="font-bold text-lg">(7) Process:</span>
               <span className="text-slate-500 font-bold">{data.process}</span>
             </p>
             }
             {data.products_of_reaction && <p>
-              <span className="font-bold text-lg">Products of Reaction:</span>
+              <span className="font-bold text-lg">(8) Products of Reaction:</span>
               <span className="text-slate-500 font-bold">{data.products_of_reaction}</span>
             </p>
             }
             {data.temp && <p>
-              <span className="font-bold text-lg">Temperature:</span>
-              <span className="text-slate-500 font-bold">{data.temp}</span>
+              <span className="font-bold text-lg">(9) Temperature:</span>
+              <span className="text-slate-500 font-bold">{data.temp || "NA"}</span>
             </p>
             }
             {data.reaction_mechanism && <p>
-              <span className="font-bold text-lg">Reaction Mechanism:</span>
+              <span className="font-bold text-lg">(10) Reaction Mechanism:</span>
               <span className="text-slate-500 font-bold">{data.reaction_mechanism}</span>
+            </p>
+            }
+            {data.reaction && <p>
+              <span className="font-bold text-lg">(10) Reaction:</span>
+              <span className="text-slate-500 font-bold">{data.reaction}</span>
             </p>
             }
           </div>
         }
-        {!query && <div className="flex flex-col items-center justify-center opacity-50 pt-20">
+        {!query && !data.name_of_compounds && <div className="flex flex-col items-center justify-center opacity-50 pt-20">
           <Image
             src={emptyLab}
             alt="empty lab"
@@ -151,6 +158,7 @@ const DataAnalysis = () => {
         </div>
         }
       </section>
+      }
       {loading
         &&
         <div className="flex flex-col items-start justify-center gap-3">

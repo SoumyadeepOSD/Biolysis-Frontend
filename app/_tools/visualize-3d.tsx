@@ -448,3 +448,23 @@ const Visualize3D = () => {
 };
 
 export default Visualize3D;
+
+
+
+
+
+
+// ====================
+// , options: ["Beaker",
+    // "Round Bottom Flask",
+    // "Condenser",
+    // "Dropping Funnel",
+    // "Bunsen Burner",
+    // "Magnetic Stirrer",
+    // "Test Tube",
+    // "Measuring Cylinder",
+    // "Balance",
+    // "Filter Paper",
+    // "Pipette",
+    // "Retort Stand and Clamps"
+// ]
