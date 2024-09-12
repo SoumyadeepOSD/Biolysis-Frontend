@@ -395,7 +395,7 @@ const VirtualLabAssistant = () => {
           </AlertDialogContent>
         </AlertDialog>}
       </div>
-      <div className="w-full h-[68vh] bg-slate-200 rounded-lg mt-3">
+      <div className="w-full h-[66vh] bg-slate-200 rounded-lg mt-3">
         <ReactFlow
           fitView
           nodes={nodes}
