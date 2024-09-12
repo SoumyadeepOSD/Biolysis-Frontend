@@ -1,88 +1,46 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
+import React from "react";
+import { WavyBackground } from "@/components/ui/wavy-background";
+import { FlipWords } from "@/components/ui/flip-words";
+import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
+import { PostrootWords, rootWords, words } from "@/constant/hero-texts";
+import Image from "next/image";
+import { LogoImage } from "./_components/images/images";
+import Link from "next/link";
 
-import React, { useState } from 'react';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card } from '@/components/ui/card';
-import Placeholder from './_components/main-section/placeholder';
-import MenuComponent from './_components/menu-component';
-import Image from 'next/image';
-import { LogoImage } from './_components/images/images';
-import axios from 'axios';
-import { Toaster } from '@/components/ui/toaster';
-import { useToast } from '@/hooks/use-toast';
-
-interface chatMessages {
-  sender: "user" | "api";
-  content: string;
-  loading?: boolean; // Optional loading property to track if API message is still being generated
-}
-
-const Home = () => {
-  const [query, setQuery] = useState<string>(""); // No need for null type
-  const [chatHistory, setChatHistory] = useState<chatMessages[]>([]);
-  const { toast } = useToast();
-
-  const generateResponse = async () => {
-    setQuery(""); // Ensure this is called to clear the input field
-    try {
-      if (!query) {
-        toast({
-          variant: "destructive",
-          title: "Warning⚠️",
-          description: "Enter the compound name first",
-        });
-        return;
-      }
-
-      setChatHistory([...chatHistory, { sender: "user", content: query }]);
-      setChatHistory((prev) => [
-        ...prev,
-        { sender: "api", content: "", loading: true }
-      ]);
-      
-      const response = await axios.get(`/api/general-response?query=${query}`);
-
-      if (response.status === 200) {
-        setChatHistory((prev) =>
-          prev.map((message) =>
-            message.sender === "api" && message.loading
-              ? { ...message, content: response.data.data.response, loading: false }
-              : message
-          )
-        );
-      }
-    } catch (error) {
-      console.error(error);
-      toast({
-        variant: "destructive",
-        title: "Error❌",
-        description: `Failed to fetch data due to ${error}`,
-      });
-    }
-  };
-
+const LandingPage = () => {
   return (
-    <div className="bg-slate-50 w-full h-screen flex flex-col justify-center items-center p-2">
-      <Toaster />
-      <Card className="h-[90%] w-[90%] flex flex-col items-center p-10">
-        <div className="flex flex-row items-center justify-center">
-          <Image src={LogoImage} alt={'logo'} height={100} width={100} style={{ objectFit: 'contain' }} />
-        </div>
-        <div className="w-full">
-        <MenuComponent />
-        </div>
-        <section className="flex flex-col items-center justify-between h-[80%] w-full">
-          <Placeholder chatHistory={chatHistory} />
-          <div className="flex flex-row w-screen items-center justify-center space-x-2 text-black mt-10">
-            <Input type="text" placeholder="Enter compound name" onChange={(e) => setQuery(e.target.value)} className="w-[60%]" value={query}/>
-            <Button type="submit" onClick={generateResponse}>Search</Button>
+    <div className="overflow-x-hidden">
+      <div className="w-full flex flex-col md:flex-row items-center md:items-start text-center bg-black">
+        <Image src={LogoImage} alt={'logo'} height={200} width={200} style={{ objectFit: 'contain', padding: '50px' }} />
+      </div>
+      <section className="relative w-full overflow-x-hidden flex flex-col items-center">
+        <WavyBackground className="max-w-4xl mx-auto pb-40 -top-24 flex flex-col items-center md:items-start">
+          <TypewriterEffectSmooth words={rootWords} />
+          <div className="flex flex-row items-center justify-center">
+            <TypewriterEffectSmooth words={PostrootWords} />
+            <FlipWords
+              className="text-3xl md:text-3xl lg:text-7xl text-cyan-300 font-bold"
+              words={words}
+            />
           </div>
-        </section>
-      </Card>
+          <div className="flex flex-col items-center justify-center w-full mt-10">
+          <Link 
+          href={"/home"}
+          className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+            <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+            <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-10 py-1 text-sm font-medium text-white backdrop-blur-3xl">
+              Get Started
+            </span>
+          </Link>
+          </div>
+        </WavyBackground>
+      </section>
+      {/* <section className="w-full text-center">
+        Footer
+      </section> */}
     </div>
   );
-}
+};
 
-export default Home;
+export default LandingPage;
