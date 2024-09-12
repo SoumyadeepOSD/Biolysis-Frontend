@@ -165,11 +165,11 @@ const Bond: React.FC<BondProps> = ({ start, end, radius, compoundName, bondOrder
             {bonds}
             {/* Tooltip for bond information */}
             <Html position={midPoint.toArray()} center>
-                <div className="tooltip">
+                {/* <div className="tooltip">
                     {compoundName} <br />
                     Bond Length: {bondLength.toFixed(2)} <br />
                     Bond Type: {bondOrder === 1 ? "Single" : bondOrder === 2 ? "Double" : "Triple"}
-                </div>
+                </div> */}
             </Html>
         </group>
     );
