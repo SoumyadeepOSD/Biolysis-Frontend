@@ -1,13 +1,12 @@
 "use client";
-import React from "react";
-import { WavyBackground } from "@/components/ui/wavy-background";
-import { FlipWords } from "@/components/ui/flip-words";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { PostrootWords, rootWords, words } from "@/constant/hero-texts";
-import Image from "next/image";
+import { WavyBackground } from "@/components/ui/wavy-background";
 import { LogoImage } from "./_components/images/images";
+import { FlipWords } from "@/components/ui/flip-words";
+import Image from "next/image";
 import Link from "next/link";
-// import ProductHuntComponent from "./_components/producthunt-component";
+import React from "react";
 
 const LandingPage = () => {
   return (
@@ -53,9 +52,6 @@ const LandingPage = () => {
           </div>
         </WavyBackground>
       </section>
-      {/* <section className="w-full text-center">
-        Footer
-      </section> */}
     </div>
   );
 };
