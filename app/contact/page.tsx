@@ -53,7 +53,7 @@ import {
   
   const Contact = () => {
     return (
-      <div className="grid grid-cols-2 items-start justify-between h-screen w-full bg-slate-50 p-20">
+      <div className="grid grid-cols-1 md:grid-cols-2 items-start justify-between h-screen w-full bg-slate-50 p-5 md:p-20">
         <div className="grid grid-rows-2 items-start justify-center">
           <div className="flex flex-col items-start justify-center">
             <h1 className="text-cyan-500 font-semibold text-5xl">Let&apos;s Talk!</h1>
@@ -83,7 +83,7 @@ import {
             ))}
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-x-10 gap-y-20 border-[2px] border-slate-500 p-5 rounded-2xl">
+        <div className="grid grid-cols-2 gap-x-10 gap-y-20 border-[2px] border-slate-500 p-5 rounded-2xl mt-10">
           <Input label="First Name" type="text" variant="underlined"/>
           <Input label="Last Name" type="text" variant="underlined"/>
           <Input label="Email" type="email" variant="underlined"/>
